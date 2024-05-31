@@ -5,6 +5,7 @@ def get_line_contain_first_keyword(
     substr = multi_line_str[found_index:]
     return substr.split("\r\n")[0]
 
+
 def get_value_of_field_in_unit_entry(
         multi_line_str: str,
         field: str) -> str:
