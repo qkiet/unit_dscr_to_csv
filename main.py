@@ -26,7 +26,7 @@ def parse_entire_unit_entry(unit_entry: str) -> str:
     for _, entry in enumerate(UNIT_CSV_FIELD_TABLE):
         parser = UnitEntryParser(
             csv_field=entry.csv_field_name, parse_handler=entry.handler)
-        parser.read_unit_entry(demo_entry)
+        parser.read_unit_entry(unit_entry)
         csv_value = parser.get_field_value()
         row_value_list.append(csv_value)
     return ",".join(row_value_list)
