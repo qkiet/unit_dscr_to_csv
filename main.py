@@ -11,10 +11,14 @@ demo_entry = \
 
 
 
-output_file = open("foo.csv", "w+")
-csv_header = ",".join(
-    entry.csv_field_name for entry in UNIT_CSV_FIELD_TABLE) + "\n"
-output_file.write(csv_header)
+
+def get_first_unit_entry_and_move_next_entry(big_text: str, start_index=0) -> tuple[str, int]:
+    # It always begin with keyword "type"
+    first_index = big_text.find("type", start_index)
+    if first_index == -1:
+        return ("", -1)
+    end_index = big_text.find("\n\n", first_index)
+    return (big_text[first_index:end_index], end_index)
 
 
 def parse_entire_unit_entry(unit_entry: str) -> str:
