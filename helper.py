@@ -19,3 +19,12 @@ def get_value_of_field_in_unit_entry(
         if wanted_line == "":
             return ""
     return wanted_line.split(maxsplit=1)[1]
+
+
+def get_one_integer_in_series_in_unit_entry(
+        multi_line_str: str,
+        field: str,
+        index_in_series) -> str:
+    series = get_value_of_field_in_unit_entry(multi_line_str, field)
+    integer_value = int(series.split(",")[index_in_series])
+    return str(integer_value)
