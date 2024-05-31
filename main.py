@@ -41,8 +41,9 @@ def parse_entire_txt(txt: str) -> list[str]:
     while True:
         my_unit_entry, next_index = get_first_unit_entry_and_move_next_entry(
             txt, start_index=start_pos)
-        parsed_csv_row = parse_entire_unit_entry(my_unit_entry)
-        csv_row_list.append(parsed_csv_row)
+        if not my_unit_entry == "":
+            parsed_csv_row = parse_entire_unit_entry(my_unit_entry)
+            csv_row_list.append(parsed_csv_row)
         if next_index == -1:
             return csv_row_list
         start_pos = next_index
