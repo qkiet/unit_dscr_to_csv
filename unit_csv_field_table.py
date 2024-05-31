@@ -6,7 +6,7 @@ def unit_field_handler(entry: str) -> str:
 
 
 def faction_field_handler(entry: str) -> str:
-    return get_value_of_field_in_unit_entry(entry, "ownership")
+    return '\"' + get_value_of_field_in_unit_entry(entry, "ownership") + '\"'
 
 
 class UnitCsvFieldTableEntry:
