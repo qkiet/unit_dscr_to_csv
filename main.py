@@ -17,7 +17,7 @@ def get_first_unit_entry_and_move_next_entry(big_text: str, start_index=0) -> tu
     first_index = big_text.find("type", start_index)
     if first_index == -1:
         return ("", -1)
-    end_index = big_text.find("\n\n", first_index)
+    end_index = big_text.find("\n\n\n", first_index)
     return (big_text[first_index:end_index], end_index)
 
 
