@@ -123,6 +123,19 @@ recruit_priority_offset    -45
 """
 
 
+def remove_line_comment(txt: str, line_comment_precedor=";") -> str:
+    tmp = txt
+    while True:
+        found_index = tmp.find(line_comment_precedor)
+        if found_index == -1:
+            return tmp
+        end_of_line_index = tmp.find("\n", found_index)
+        # If end of line not found means this is EOF
+        if end_of_line_index == -1:
+            end_of_line_index = len(tmp)
+        tmp = tmp[:found_index] + tmp[end_of_line_index:]
+
+
 def parse_entire_txt(txt: str):
     start_pos = 0
     while True:
