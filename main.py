@@ -27,21 +27,31 @@ def unit_field_handler(entry: str) -> str:
 def faction_field_handler(entry: str) -> str:
     return get_value_of_field_in_unit_entry(entry, "ownership")
 
-WANTED_CSV_FIELD = ["Unit", "Faction"]
-FIELD_HANDLER = [unit_field_handler, faction_field_handler]
+class UnitCsvFieldTableEntry:
+    def __init__(self, csv_field_name: str, handler) -> None:
+        self.csv_field_name = csv_field_name
+        self.handler = handler
+        
+
+UNIT_CSV_FIELD_TABLE = [
+    UnitCsvFieldTableEntry("Unit", unit_field_handler),
+    UnitCsvFieldTableEntry("Faction", faction_field_handler)
+]
 
 output_file = open("foo.csv", "w+")
-csv_header = ",".join(WANTED_CSV_FIELD) + "\n"
+csv_header = ",".join(entry.csv_field_name for entry in UNIT_CSV_FIELD_TABLE) + "\n"
 output_file.write(csv_header)
 
-row_value_list = []
-for i in range(0, len(WANTED_CSV_FIELD)):
-    parser = UnitEntryParser(csv_field=WANTED_CSV_FIELD[i], parse_handler=FIELD_HANDLER[i])
-    parser.read_unit_entry(demo_entry)
-    csv_value = parser.get_field_value()
-    row_value_list.append(csv_value)
-row_string = ",".join(row_value_list) + "\n"
-output_file.write(row_string)
+def parse_entire_unit_entry(unit_entry: str) -> str:
+    row_value_list = []
+    for _, entry  in enumerate(UNIT_CSV_FIELD_TABLE):
+        parser = UnitEntryParser(csv_field=entry.csv_field_name, parse_handler=entry.handler)
+        parser.read_unit_entry(demo_entry)
+        csv_value = parser.get_field_value()
+        row_value_list.append(csv_value)
+    return ",".join(row_value_list)
+
+output_file.write(parse_entire_unit_entry(unit_entry=demo_entry)+"\n")
 ## Should output followng in "foo" csv file
 # Unit,Faction
 # Lettish Crossbowmen,byzantium
