@@ -26,7 +26,11 @@ class UnitCsvFieldTableEntry:
         self.handler = handler
 
 
+# The order of this list affect the order of CSV header!
 UNIT_CSV_FIELD_TABLE = [
     UnitCsvFieldTableEntry("Unit", unit_field_handler),
-    UnitCsvFieldTableEntry("Faction", faction_field_handler)
+    UnitCsvFieldTableEntry("Faction", faction_field_handler),
+    UnitCsvFieldTableEntry("Attack", attack_damage_field_handler),
+    UnitCsvFieldTableEntry("Charge Bounus", charge_bounus_field_handler),
+    # Add new CSV column and its handler here
 ]
