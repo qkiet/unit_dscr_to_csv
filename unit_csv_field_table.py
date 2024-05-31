@@ -29,6 +29,16 @@ def weapon_type_field_handler(entry: str) -> str:
         entry, field="stat_pri", index_in_series=5)
 
 
+def recruitment_cost_field_handler(entry: str) -> str:
+    return str(int(get_one_value_in_comma_separated_series_in_unit_entry(
+        entry, field="stat_cost", index_in_series=1)))
+
+
+def upkeep_cost_field_handler(entry: str) -> str:
+    return str(int(get_one_value_in_comma_separated_series_in_unit_entry(
+        entry, field="stat_cost", index_in_series=2)))
+
+
 class UnitCsvFieldTableEntry:
     def __init__(self, csv_field_name: str, handler) -> None:
         self.csv_field_name = csv_field_name
@@ -42,5 +52,7 @@ UNIT_CSV_FIELD_TABLE = [
     UnitCsvFieldTableEntry("Attack", attack_damage_field_handler),
     UnitCsvFieldTableEntry("Charge Bounus", charge_bounus_field_handler),
     UnitCsvFieldTableEntry("Weapon Type", weapon_type_field_handler),
+    UnitCsvFieldTableEntry("Recruitment Cost", recruitment_cost_field_handler),
+    UnitCsvFieldTableEntry("Upkeep Cost", upkeep_cost_field_handler),
     # Add new CSV column and its handler here
 ]
